@@ -11,7 +11,10 @@ namespace OnlajnProdavnicaOdece
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["korisnik"] == "")
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
     }
 }

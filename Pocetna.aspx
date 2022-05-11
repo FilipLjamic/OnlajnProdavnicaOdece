@@ -19,7 +19,7 @@
             </header>
 
             <div id="main">
-                <img src="https://drive.google.com/uc?id=1Li5JXl8vw0wmos72YA_1s_egWnIyRsi6"  width="20%"/>
+                <img src="/uploads/default.png"  width="20%"/>
 
                 <div class="proizvodCointainer">
                     <%
