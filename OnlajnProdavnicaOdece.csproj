@@ -67,6 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.css" />
+    <Content Include="Login.aspx" />
+    <Content Include="Login.css" />
     <Content Include="Pocetna.aspx" />
     <Content Include="Pocetna.css" />
     <Content Include="Web.config" />
@@ -74,6 +77,13 @@
   <ItemGroup>
     <Compile Include="Klasa.cs" />
     <Compile Include="Konekcija.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pocetna.aspx.cs">
       <DependentUpon>Pocetna.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

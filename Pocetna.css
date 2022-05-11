@@ -1,10 +1,4 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+﻿body {
     background-color: white;
 }
 
@@ -17,17 +11,15 @@ body {
 }
 
 #header {
-
+    width: 100%;
+    background-color: rgb(239, 41, 41);
 }
 
 .proizvodContainer {
     display: flex;
-    align-items: left;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: left;
     width: 100%;
-    gap: 0;
 }
 
 .proizvodStavka {
@@ -36,9 +28,13 @@ body {
     padding: 1em;
     margin: 0;
     float: left;
+    transition-property: background-color;
+    transition-duration: 300ms;
+    
 }
 
 .proizvodStavka:hover {
+    
     background-color: rgb(226, 211, 192);
 }
 

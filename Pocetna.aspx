@@ -8,15 +8,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Pocetna</title>
+    <link href="Global.css" rel="stylesheet" type="text/css" />
     <link href="Pocetna.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
+            <header id="header">
+                <h1>Naslov</h1>
+            </header>
+
             <div id="main">
-                <header id="header">
-                    <h1>Naslov</h1>
-                </header>
+                <img src="https://drive.google.com/uc?id=1Li5JXl8vw0wmos72YA_1s_egWnIyRsi6"  width="20%"/>
 
                 <div class="proizvodCointainer">
                     <%
@@ -46,6 +49,7 @@
                             Response.Write("Broj" + i + ".\n");
                             Response.Write("</div>");
                         }
+                        
                     %>
                 </p>
             </div>
