@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace OnlajnProdavnicaOdece
 {
@@ -44,6 +45,31 @@ namespace OnlajnProdavnicaOdece
                 rezultat = 1;
             }
             return rezultat;
+        }
+
+        public string getKorisnikName(string mejl)
+        {
+            string naredba = "SELECT Ime + ' ' + Prezime AS Naziv FROM Korisnik WHERE Mejl = '" + mejl + "'";
+            SqlConnection veza = Konekcija.Connect();
+            SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
+            DataTable dt_Name = new DataTable();
+            adapter.Fill(dt_Name);
+            return dt_Name.Rows[0]["Naziv"].ToString();
+        }
+
+        public bool jeAdmin(string mejl)
+        {
+            string naredba = "SELECT jeAdmin FROM Korisnik WHERE Mejl = '" + mejl + "'";
+            SqlConnection veza = Konekcija.Connect();
+            SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
+            DataTable dt_Admin = new DataTable();
+            adapter.Fill(dt_Admin);
+            if ((bool)dt_Admin.Rows[0]["jeAdmin"] == true)
+            {
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

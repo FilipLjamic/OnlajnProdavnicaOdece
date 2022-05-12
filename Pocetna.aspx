@@ -14,14 +14,36 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <header id="header">
-                <h1>Naslov</h1>
+            <% Klasa A = new Klasa(); %>
+            <header>
+                <div class="header">
+                    <div class="user">
+                        <h1><% Response.Write(A.getKorisnikName(Session["korisnik"].ToString())); %></h1>
+                    </div>
+                    
+                    <div class="headerControl">
+                        <a href="Login.aspx" class="controlItem">
+                            <p>Logout</p>
+                        </a>
+                        <a href="#" class="controlItem">
+                            <p>Nalog</p>
+                        </a>
+                        <%
+                            if (A.jeAdmin(Session["korisnik"].ToString()) == true)
+                            {
+                                Response.Write("<a href='Admin.aspx' class='controlItem'><p>Upravljanje</p></a>");
+                            }
+                        %>
+
+                        
+                    </div>
+                </div>
+
             </header>
 
             <div id="main">
-                <img src="/uploads/default.png"  width="20%"/>
 
-                <div class="proizvodCointainer">
+                <div class="proizvodContainer">
                     <%
                         
                         StringBuilder naredba = new StringBuilder("SELECT * FROM Proizvod");
@@ -33,7 +55,15 @@
                         for (int i = 0; i < dt_Proizvod.Rows.Count; i++)
                         {
                             Response.Write("<div class='proizvodStavka'>");
+
                             Response.Write(dt_Proizvod.Rows[i]["Naziv"].ToString());
+
+                            Response.Write("<div class='proizvodSlika'>");
+                            Response.Write("<img src='");
+                            Response.Write(dt_Proizvod.Rows[i]["SlikaRef"].ToString());
+                            Response.Write("' width='90%' align='center' />");
+                            Response.Write("</div>");
+
                             Response.Write("</div>");
                         }
 
@@ -41,17 +71,6 @@
                     %>
                 </div>
 
-                <p>
-                    <%
-                        for (int i = 1; i <= 5; i++)
-                        {
-                            Response.Write("<div class='a" + i + "'>");
-                            Response.Write("Broj" + i + ".\n");
-                            Response.Write("</div>");
-                        }
-                        
-                    %>
-                </p>
             </div>
         </div>
     </form>

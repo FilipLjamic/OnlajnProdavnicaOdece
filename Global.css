@@ -5,3 +5,11 @@
     font-family: helvetica-now, sans-serif;
     font-weight: 400;
 }
+
+a {
+    text-decoration: none;
+}
+
+p {
+    text-decoration: none;
+}

@@ -427,7 +427,7 @@ go
 
 
 
-/**********Dobijanje ukupne cene**********/
+/**********Dobijanje ukupne cene**********//*zavrsi ovo*/
 go
 CREATE FUNCTION GetUkupnaCena (@NarudzbinaId INT)
 RETURNS FLOAT AS
@@ -445,7 +445,7 @@ END
 
 
 /*TRIGGER DA SE PROIZVOD NARUDZBINA OBRISE KADA KOLICINA PADNE NA 0*/
-
+/*kada kolicina proizvoda bude 0, nema na sstanju*/
 
 /**********Dodavanje admina**********/
 INSERT INTO Korisnik (Ime, Prezime, Telefon, Mejl, Lozinka, jeAdmin)

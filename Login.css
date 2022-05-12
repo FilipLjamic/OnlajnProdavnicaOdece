@@ -1,3 +1,66 @@
-﻿body {
+﻿.main {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(225, 232, 238);
+    display: flex;
+    justify-content: space-around;
+    justify-items: space-around;
+}
+
+.panel {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 500px;
+    align-items: center;
+    padding: 3em;
     background-color: white;
+    margin: auto;
+    border-radius: 3em;
+}
+
+.item {
+    padding: 0.75em 1.5em;
+    margin: 1em;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#Label1 {
+    font-size: 30px;
+    padding-bottom: 0.25em;
+}
+
+#mejl, #lozinka {
+    border-radius: 1.5em;
+}
+
+#login {
+    border-radius: 1.5em;
+    color: white;
+    background-color: rgb(230, 50, 50);
+    border: none;
+    transition-property: all;
+    transition-duration: 300ms;
+    font-weight: 600;
+}
+
+#login:hover {
+    background-color: rgb(202, 43, 43);
+}
+
+#Label2 {
+    padding-bottom: 0;
+    margin-bottom: 0.5em;
+}
+
+#HyperLink1 {
+    padding-top: 0;
+    margin-top: 0;
+    color: rgb(230, 50, 50);
+    transition-property: all;
+    transition-duration: 300ms;
+}
+
+#HyperLink1:hover {
+    color: rgb(202, 43, 43);
 }
