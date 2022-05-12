@@ -11,10 +11,16 @@ namespace OnlajnProdavnicaOdece
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["korisnik"] == "")
+            if (Session["korisnik"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Session["korisnik"] = "";
             }
+        }
+
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+            Session["korisnik"] = "";
+            Response.Redirect("Pocetna.aspx");
         }
     }
 }

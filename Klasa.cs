@@ -26,8 +26,9 @@ namespace OnlajnProdavnicaOdece
             komanda.CommandType = CommandType.StoredProcedure;
             komanda.CommandText = "KorisnikEmailProvera";
 
-            komanda.Parameters.Add(new SqlParameter("@Mejl", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, mejl));
-            komanda.Parameters.Add(new SqlParameter("@Lozinka", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, lozinka));
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Mejl", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, mejl.ToString()));
+            komanda.Parameters.Add(new SqlParameter("@Lozinka", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, lozinka.ToString()));
             komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
             konekcija.Open();
             komanda.ExecuteNonQuery();
@@ -36,40 +37,67 @@ namespace OnlajnProdavnicaOdece
             int Ret;
             Ret = (int)komanda.Parameters["@RETURN_VALUE"].Value;
             if (Ret == 0)
-            {
                 rezultat = 0;
-            }
-
             else
-            {
                 rezultat = 1;
-            }
             return rezultat;
+        }
+
+        public void KorisnikInsert(string mejl, string lozinka, string ime, string prezime, string telefon)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "KorisnikInsert";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Mejl", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, mejl));
+            komanda.Parameters.Add(new SqlParameter("@Lozinka", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, lozinka));
+            komanda.Parameters.Add(new SqlParameter("@Ime", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, ime));
+            komanda.Parameters.Add(new SqlParameter("@Prezime", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, prezime));
+            komanda.Parameters.Add(new SqlParameter("@Telefon", SqlDbType.NVarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, telefon));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+            
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
         }
 
         public string getKorisnikName(string mejl)
         {
-            string naredba = "SELECT Ime + ' ' + Prezime AS Naziv FROM Korisnik WHERE Mejl = '" + mejl + "'";
-            SqlConnection veza = Konekcija.Connect();
-            SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
-            DataTable dt_Name = new DataTable();
-            adapter.Fill(dt_Name);
-            return dt_Name.Rows[0]["Naziv"].ToString();
+                string naredba = "SELECT Ime + ' ' + Prezime AS Naziv FROM Korisnik WHERE Mejl = '" + mejl + "'";
+                SqlConnection veza = Konekcija.Connect();
+                SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
+                DataTable dt_Name = new DataTable();
+                adapter.Fill(dt_Name);
+                return dt_Name.Rows[0]["Naziv"].ToString();
         }
 
         public bool jeAdmin(string mejl)
         {
-            string naredba = "SELECT jeAdmin FROM Korisnik WHERE Mejl = '" + mejl + "'";
-            SqlConnection veza = Konekcija.Connect();
-            SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
-            DataTable dt_Admin = new DataTable();
-            adapter.Fill(dt_Admin);
-            if ((bool)dt_Admin.Rows[0]["jeAdmin"] == true)
-            {
-                return true;
-            }
+            konekcija.ConnectionString = webConfig;
+            bool rezultat;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "isAdmin";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Mejl", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, mejl));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+
+            int Ret;
+            Ret = (int)komanda.Parameters["@RETURN_VALUE"].Value;
+            if (Ret == 0)
+                rezultat = false;
             else
-                return false;
+                rezultat = true;
+            return rezultat;
         }
     }
 }

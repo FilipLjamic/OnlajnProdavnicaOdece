@@ -11,7 +11,7 @@ namespace OnlajnProdavnicaOdece
 {
 
 
-    public partial class Login
+    public partial class Registracija
     {
 
         /// <summary>
@@ -51,22 +51,40 @@ namespace OnlajnProdavnicaOdece
         protected global::System.Web.UI.WebControls.TextBox lozinka;
 
         /// <summary>
-        /// login control.
+        /// ime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button login;
+        protected global::System.Web.UI.WebControls.TextBox ime;
 
         /// <summary>
-        /// Label2 control.
+        /// prezime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.TextBox prezime;
+
+        /// <summary>
+        /// telefon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox telefon;
+
+        /// <summary>
+        /// register control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button register;
 
         /// <summary>
         /// HyperLink1 control.
@@ -76,14 +94,5 @@ namespace OnlajnProdavnicaOdece
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
-
-        /// <summary>
-        /// HyperLink2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
     }
 }

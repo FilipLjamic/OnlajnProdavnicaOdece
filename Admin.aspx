@@ -4,11 +4,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Upravljanje</title>
+    <link href="Global.css" rel="stylesheet" type="text/css" />
+    <link href="Admin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
+
+
         </div>
     </form>
 </body>

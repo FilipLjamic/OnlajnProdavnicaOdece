@@ -13,11 +13,12 @@
         <div class="main">
             <div class="panel">
                 <asp:Label ID="Label1" runat="server" Text="Ulogujte se" CssClass="item"></asp:Label>
-                <asp:TextBox ID="mejl" runat="server" type="email" placeholder="Mejl" CssClass="item"></asp:TextBox>
+                <asp:TextBox ID="mejl" runat="server" placeholder="Mejl" CssClass="item" TextMode="Email"></asp:TextBox>
                 <asp:TextBox ID="lozinka" runat="server" type="password" placeholder="Lozinka" TextMode="Password" ValidateRequestMode="Disabled" CssClass="item"></asp:TextBox>
                 <asp:Button ID="login" runat="server" Text="Login" OnClick="Login_Click" CssClass="item" />
                 <asp:Label ID="Label2" runat="server" Text="Nemate nalog?" CssClass="item"></asp:Label>
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Registracija.aspx" CssClass="item">Registracija</asp:HyperLink>
+                <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Pocetna.aspx" CssClass="item">Nastavite bez naloga</asp:HyperLink>
             </div>
         </div>
     </form>

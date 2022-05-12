@@ -11,7 +11,7 @@ namespace OnlajnProdavnicaOdece
 {
 
 
-    public partial class Login
+    public partial class Nalog
     {
 
         /// <summary>
@@ -51,39 +51,48 @@ namespace OnlajnProdavnicaOdece
         protected global::System.Web.UI.WebControls.TextBox lozinka;
 
         /// <summary>
-        /// login control.
+        /// ime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button login;
+        protected global::System.Web.UI.WebControls.TextBox ime;
 
         /// <summary>
-        /// Label2 control.
+        /// prezime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.TextBox prezime;
 
         /// <summary>
-        /// HyperLink1 control.
+        /// telefon control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.TextBox telefon;
 
         /// <summary>
-        /// HyperLink2 control.
+        /// update control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
+        protected global::System.Web.UI.WebControls.Button update;
+
+        /// <summary>
+        /// delete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button delete;
     }
 }

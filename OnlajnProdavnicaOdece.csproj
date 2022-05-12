@@ -68,11 +68,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
+    <Content Include="Admin.css" />
     <Content Include="Global.css" />
     <Content Include="Login.aspx" />
     <Content Include="Login.css" />
+    <Content Include="Nalog.aspx" />
+    <Content Include="Nalog.css" />
     <Content Include="Pocetna.aspx" />
     <Content Include="Pocetna.css" />
+    <Content Include="Registracija.aspx" />
+    <Content Include="Registracija.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +97,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Nalog.aspx.cs">
+      <DependentUpon>Nalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nalog.aspx.designer.cs">
+      <DependentUpon>Nalog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pocetna.aspx.cs">
       <DependentUpon>Pocetna.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -100,6 +112,13 @@
       <DependentUpon>Pocetna.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registracija.aspx.cs">
+      <DependentUpon>Registracija.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registracija.aspx.designer.cs">
+      <DependentUpon>Registracija.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
