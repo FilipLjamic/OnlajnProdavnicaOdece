@@ -47,9 +47,9 @@
                 <div class="proizvodContainer">
                     <%
                         
-                        StringBuilder naredba = new StringBuilder("SELECT * FROM Proizvod");
+                        string naredba = "SELECT * FROM Proizvod";
                         SqlConnection veza = Konekcija.Connect();
-                        SqlDataAdapter adapter = new SqlDataAdapter(naredba.ToString(), veza);
+                        SqlDataAdapter adapter = new SqlDataAdapter(naredba, veza);
                         DataTable dt_Proizvod = new DataTable();
                         adapter.Fill(dt_Proizvod);
 

@@ -163,5 +163,23 @@ namespace OnlajnProdavnicaOdece
                 rezultat = true;
             return rezultat;
         }
+
+        public void TagInsert(string naziv, string opis)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "TagInsert";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Naziv", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, naziv));
+            komanda.Parameters.Add(new SqlParameter("@Opis", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Current, opis));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
     }
 }
