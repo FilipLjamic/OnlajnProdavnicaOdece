@@ -1,1 +1,46 @@
-﻿
+﻿.main {
+    width: 100vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.panel {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 34%;
+    align-items: center;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.item {
+    padding: 0.75em 1.5em;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#Label1, #Label2, #Label3, #Label4, #Label5, #Label6 {
+    font-size: 30px;
+}
+
+#mejl, #lozinka, #ime, #prezime, #telefon, #lozinkaPotvrda {
+    border-radius: 1.5em;
+}
+
+#update, #delete {
+    border-radius: 1.5em;
+    color: white;
+    background-color: rgb(230, 50, 50);
+    border: none;
+    transition-property: all;
+    transition-duration: 300ms;
+    font-weight: 600;
+    margin-top: 1.5em;
+}
+
+#update:hover, #delete:hover {
+    background-color: rgb(202, 43, 43);
+}

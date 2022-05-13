@@ -39,15 +39,34 @@
                     </div>
                 </div>
             </header>
+            <div class="main">
+                <div class="panel">
+                    <asp:Label ID="Label1" runat="server" Text="Mejl" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="mejl" runat="server" placeholder="Mejl" CssClass="item" TextMode="Email"></asp:TextBox>
 
-            <asp:Label ID="Label1" runat="server" Text="Registrujte se" CssClass="item"></asp:Label>
-            <asp:TextBox ID="mejl" runat="server" placeholder="Mejl" CssClass="item" TextMode="Email"></asp:TextBox>
-            <asp:TextBox ID="lozinka" runat="server" placeholder="Lozinka" TextMode="Password" ValidateRequestMode="Disabled" CssClass="item"></asp:TextBox>
-            <asp:TextBox ID="ime" runat="server" placeholder="Ime" CssClass="item"></asp:TextBox>
-            <asp:TextBox ID="prezime" runat="server" placeholder="Prezime" CssClass="item"></asp:TextBox>
-            <asp:TextBox ID="telefon" runat="server" placeholder="Broj telefona" CssClass="item" TextMode="Phone"></asp:TextBox>
-            <asp:Button ID="update" runat="server" Text="Azurirajte nalog"  CssClass="item"  />
-            <asp:Button ID="delete" runat="server" Text="Obrisite nalog"  CssClass="item"  />
+                    <asp:Label ID="Label2" runat="server" Text="Lozinka" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="lozinka" runat="server" placeholder="Lozinka" TextMode="Password" ValidateRequestMode="Disabled" CssClass="item"></asp:TextBox>
+
+                    <asp:Label ID="Label3" runat="server" Text="Potvrda lozinke" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="lozinkaPotvrda" runat="server" placeholder="Stara lozinka" TextMode="Password" ValidateRequestMode="Disabled" CssClass="item"></asp:TextBox>
+                </div>
+                <div class="panel">
+                     <asp:Label ID="Label4" runat="server" Text="Ime" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="ime" runat="server" placeholder="Ime" CssClass="item"></asp:TextBox>
+
+                    <asp:Label ID="Label5" runat="server" Text="Prezime" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="prezime" runat="server" placeholder="Prezime" CssClass="item"></asp:TextBox>
+
+                    <asp:Label ID="Label6" runat="server" Text="Telefon" CssClass="item"></asp:Label>
+                    <asp:TextBox ID="telefon" runat="server" placeholder="Broj telefona" CssClass="item" TextMode="Phone"></asp:TextBox>
+                </div>
+                <div class="panel">
+                    <asp:Button ID="update" runat="server" Text="Azurirajte nalog"  CssClass="item" OnClick="update_Click"  />
+
+                    <asp:Button ID="delete" runat="server" Text="Obrisite nalog"  CssClass="item" OnClick="delete_Click"  />
+                </div>
+            </div>
+
         </div>
     </form>
 </body>

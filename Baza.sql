@@ -115,15 +115,25 @@ go
 /**/
 go
 CREATE PROC KorisnikUpdate
+@Id INT,
+@Ime NVARCHAR(50),
+@Prezime NVARCHAR(50),
+@Telefon NVARCHAR(15),
 @Mejl NVARCHAR(50),
 @Lozinka NVARCHAR(50)
 AS
 SET LOCK_TIMEOUT 3000;
 BEGIN TRY
 	IF EXISTS (SELECT TOP 1 Mejl FROM Korisnik
-	WHERE Mejl = @Mejl)
+	WHERE Id = @Id)
 	BEGIN
-		UPDATE Korisnik SET Lozinka = @Lozinka WHERE Mejl = @Mejl 
+		UPDATE Korisnik SET
+		Mejl = @Mejl,
+		Lozinka = @Lozinka ,
+		Ime = @Ime,
+		Prezime = @Prezime,
+		Telefon = @Telefon
+		WHERE Id = @Id 
 		RETURN 0;
 	END
 	RETURN 1;
@@ -437,7 +447,24 @@ BEGIN CATCH
 	RETURN @@ERROR;
 END CATCH
 go
-
+/**/
+go
+CREATE PROC KorisnikPostoji
+@Mejl NVARCHAR(50)
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	IF EXISTS(SELECT TOP 1 Id FROM Korisnik
+	WHERE Mejl = @Mejl)
+	BEGIN
+		RETURN 0;
+	END
+	RETURN 1;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
 
 
 

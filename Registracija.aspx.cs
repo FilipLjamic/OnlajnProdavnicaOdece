@@ -17,9 +17,9 @@ namespace OnlajnProdavnicaOdece
 
         protected void register_Click(object sender, EventArgs e)
         {
-            A.KorisnikInsert(mejl.Text, lozinka.Text, ime.Text, prezime.Text, telefon.Text);
-            if (A.KorisnikProvera(mejl.Text, lozinka.Text) == 0)
+            if (A.KorisnikPostoji(mejl.Text) != 0)
             {
+                A.KorisnikInsert(mejl.Text, lozinka.Text, ime.Text, prezime.Text, telefon.Text);
                 Session["korisnik"] = mejl.Text;
                 Response.Redirect("Pocetna.aspx");
             }
