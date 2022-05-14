@@ -226,7 +226,7 @@ namespace OnlajnProdavnicaOdece
 
             komanda.Connection = konekcija;
             komanda.CommandType = CommandType.StoredProcedure;
-            komanda.CommandText = "ProizvodTag";
+            komanda.CommandText = "ProizvodTagInsert";
 
             komanda.Parameters.Clear();
             komanda.Parameters.Add(new SqlParameter("@ProizvodId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, proizvodId));
@@ -236,6 +236,61 @@ namespace OnlajnProdavnicaOdece
             konekcija.Open();
             komanda.ExecuteNonQuery();
             konekcija.Close();
+        }
+
+        public void ProizvodSlikaUpdate(string Ref, int Id)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodSlikaUpdate";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Id));
+            komanda.Parameters.Add(new SqlParameter("@SlikaRef", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Ref));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
+
+        public DataSet ProizvodSvi()
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodSvi";
+
+            komanda.Parameters.Clear();
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+            adapter.SelectCommand = komanda;
+            adapter.Fill(set);
+            return set;
+        }
+
+        public DataSet PTFilter(string tag)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodSviFilter";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Tag", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, tag));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+            adapter.SelectCommand = komanda;
+            adapter.Fill(set);
+            return set;
         }
     }
 }

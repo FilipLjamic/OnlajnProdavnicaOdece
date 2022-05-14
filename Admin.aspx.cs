@@ -77,10 +77,10 @@ namespace OnlajnProdavnicaOdece
                 }
                 else
                 {
-                    FileUpload1.SaveAs(Server.MapPath("./uploads/" + FileUpload1.FileName));
-                    A.SlikaInsert("./uploads/" + FileUpload1.FileName);
+                    FileUpload1.SaveAs(Server.MapPath("/uploads/" + FileUpload1.FileName));
+                    A.SlikaInsert("/uploads/" + FileUpload1.FileName);
                 }
-
+                DropDownList3.DataBind();
             }
         }
 
@@ -91,9 +91,16 @@ namespace OnlajnProdavnicaOdece
 
         protected void ProizvdTagLBInsert_Click(object sender, EventArgs e)
         {
-            int pId = Convert.ToInt32(((DropDownList)GridProizvod.FooterRow.FindControl("DropDownList4")).SelectedValue);
-            int tId = Convert.ToInt32(((DropDownList)GridProizvod.FooterRow.FindControl("DropDownList5")).SelectedValue);
+            int pId = Convert.ToInt32(((DropDownList)GridPT.FooterRow.FindControl("DropDownList4")).SelectedValue);
+            int tId = Convert.ToInt32(((DropDownList)GridPT.FooterRow.FindControl("DropDownList5")).SelectedValue);
             A.ProizvodTagInsert(pId, tId);
+            GridPT.DataBind();
+        }
+
+        protected void GridProizvod_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            A.ProizvodSlikaUpdate(((DropDownList)GridProizvod.Rows[GridProizvod.EditIndex].FindControl("DropDownList1")).SelectedValue, Convert.ToInt32(((Label)GridProizvod.Rows[GridProizvod.EditIndex].FindControl("Label1")).Text));
+            GridProizvod.DataBind();
         }
     }
 }

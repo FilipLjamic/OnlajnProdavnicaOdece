@@ -112,7 +112,7 @@
             </div>
 
             <div>
-                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" DeleteCommand="DELETE FROM [Proizvod] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Proizvod] ([Naziv], [Opis], [Cena], [Kolicina], [DatumNastanka], [DatumIzmene], [SlikaRef]) VALUES (@Naziv, @Opis, @Cena, @Kolicina, @DatumNastanka, @DatumIzmene, @SlikaRef)" SelectCommand="SELECT * FROM [Proizvod]" UpdateCommand="UPDATE [Proizvod] SET [Naziv] = @Naziv, [Opis] = @Opis, [Cena] = @Cena, [Kolicina] = @Kolicina, [DatumNastanka] = @DatumNastanka, [DatumIzmene] = @DatumIzmene, [SlikaRef] = @SlikaRef WHERE [Id] = @Id">
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" DeleteCommand="DELETE FROM [Proizvod] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Proizvod] ([Naziv], [Opis], [Cena], [Kolicina], [DatumNastanka], [SlikaRef]) VALUES (@Naziv, @Opis, @Cena, @Kolicina, @DatumNastanka, @SlikaRef)" SelectCommand="SELECT * FROM [Proizvod]" UpdateCommand="UPDATE [Proizvod] SET [Naziv] = @Naziv, [Opis] = @Opis, [Cena] = @Cena, [Kolicina] = @Kolicina, [DatumNastanka] = @DatumNastanka, [SlikaRef] = @SlikaRef WHERE [Id] = @Id">
                     <DeleteParameters>
                         <asp:Parameter Name="Id" Type="Int32" />
                     </DeleteParameters>
@@ -122,7 +122,6 @@
                         <asp:Parameter Name="Cena" Type="Double" />
                         <asp:Parameter Name="Kolicina" Type="Int32" />
                         <asp:Parameter DbType="Date" Name="DatumNastanka" />
-                        <asp:Parameter DbType="Date" Name="DatumIzmene" />
                         <asp:Parameter Name="SlikaRef" Type="String" />
                     </InsertParameters>
                     <UpdateParameters>
@@ -131,13 +130,12 @@
                         <asp:Parameter Name="Cena" Type="Double" />
                         <asp:Parameter Name="Kolicina" Type="Int32" />
                         <asp:Parameter DbType="Date" Name="DatumNastanka" />
-                        <asp:Parameter DbType="Date" Name="DatumIzmene" />
                         <asp:Parameter Name="SlikaRef" Type="String" />
                         <asp:Parameter Name="Id" Type="Int32" />
                     </UpdateParameters>
                 </asp:SqlDataSource>
 
-                <asp:GridView ID="GridProizvod" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource2" ShowFooter="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+                <asp:GridView ID="GridProizvod" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource2" ShowFooter="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowUpdated="GridProizvod_RowUpdated">
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -207,15 +205,15 @@
                                 <asp:Label ID="Label6" runat="server" Text='<%# Bind("DatumNastanka") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="SlikaRef" SortExpression="SlikaRef">
+                        <asp:TemplateField HeaderText="SlikaRef">
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" SelectedValue='<%# Bind("SlikaRef") %>' DataTextField="SlikaRef" DataValueField="SlikaRef" Height="4em"></asp:DropDownList>
+                                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource3" DataTextField="Ref" DataValueField="Ref" Height="4em"></asp:DropDownList>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Image ID="Image2" runat="server" ImageUrl='<%# Bind("SlikaRef") %>' Height="4em"/>
                             </ItemTemplate>
                             <FooterTemplate>
-                                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource2" DataTextField="SlikaRef" DataValueField="SlikaRef" Height="4em"></asp:DropDownList>
+                                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource3" DataTextField="Ref" DataValueField="Ref" Height="4em"></asp:DropDownList>
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
@@ -266,7 +264,7 @@
                     </InsertParameters>
                 </asp:SqlDataSource>
 
-                <asp:GridView ID="GridPT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="ProizvodId,TagId" DataSourceID="SqlDataSource4" ShowFooter="True">
+                <asp:GridView ID="GridPT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="ProizvodId,TagId" DataSourceID="SqlDataSource4" ShowFooter="True" ShowHeaderWhenEmpty="True">
                     <Columns>
                         <asp:TemplateField>
                             <EditItemTemplate></EditItemTemplate>

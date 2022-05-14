@@ -45,7 +45,7 @@
             <div id="main">
 
                 <div class="proizvodContainer">
-                    <%
+                    <!--<%
                         
                         string naredba = "SELECT * FROM Proizvod";
                         SqlConnection veza = Konekcija.Connect();
@@ -69,7 +69,29 @@
                         }
 
                         
-                    %>
+                    %>-->
+
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Naziv" DataValueField="Naziv"></asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" SelectCommand="SELECT * FROM [Tag]"></asp:SqlDataSource>
+                    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+                    <%
+                
+
+                DataSet set = new DataSet();
+                set = A.ProizvodSvi();
+                for (int i = 0; i < set.Tables[0].Rows.Count; i++)
+                {
+                    Response.Write(set.Tables[0].Rows[i]["Naziv"]);
+                    Response.Write("<a href=Narudzbina.aspx?ID=" + set.Tables[0].Rows[i]["Id"] + ">");
+                    Response.Write("Naruci");
+                    Response.Write("</a>");
+                    Response.Write(set.Tables[0].Rows[i]["Opis"]);
+                    Response.Write("<img src='" + set.Tables[0].Rows[i]["SlikaRef"] + "' width=100px />");
+
+                    Response.Write("<br>");
+
+                }
+                %>
                 </div>
 
             </div>

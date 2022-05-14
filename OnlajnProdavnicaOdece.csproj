@@ -74,8 +74,10 @@
     <Content Include="Login.css" />
     <Content Include="Nalog.aspx" />
     <Content Include="Nalog.css" />
+    <Content Include="Narudzbina.aspx" />
     <Content Include="Pocetna.aspx" />
     <Content Include="Pocetna.css" />
+    <Content Include="Proba.aspx" />
     <Content Include="Registracija.aspx" />
     <Content Include="Registracija.css" />
     <Content Include="Web.config" />
@@ -104,12 +106,26 @@
     <Compile Include="Nalog.aspx.designer.cs">
       <DependentUpon>Nalog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Narudzbina.aspx.cs">
+      <DependentUpon>Narudzbina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Narudzbina.aspx.designer.cs">
+      <DependentUpon>Narudzbina.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pocetna.aspx.cs">
       <DependentUpon>Pocetna.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pocetna.aspx.designer.cs">
       <DependentUpon>Pocetna.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Proba.aspx.cs">
+      <DependentUpon>Proba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Proba.aspx.designer.cs">
+      <DependentUpon>Proba.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registracija.aspx.cs">
