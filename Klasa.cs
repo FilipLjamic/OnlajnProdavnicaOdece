@@ -181,5 +181,61 @@ namespace OnlajnProdavnicaOdece
             komanda.ExecuteNonQuery();
             konekcija.Close();
         }
+
+        public void ProizvodInsert(string naziv, string opis, double cena, int kolicina, string slika)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodInsert";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Naziv", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, naziv));
+            komanda.Parameters.Add(new SqlParameter("@Opis", SqlDbType.NVarChar, 1000, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Current, opis));
+            komanda.Parameters.Add(new SqlParameter("@Cena", SqlDbType.Float, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, cena));
+            komanda.Parameters.Add(new SqlParameter("@Kolicina", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, kolicina));
+            komanda.Parameters.Add(new SqlParameter("@SlikaRef", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, slika));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
+
+        public void SlikaInsert(string Ref)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "SlikaInsert";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Ref", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Ref));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
+
+        public void ProizvodTagInsert(int proizvodId, int tagId)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodTag";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@ProizvodId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, proizvodId));
+            komanda.Parameters.Add(new SqlParameter("@TagId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, tagId));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
     }
 }

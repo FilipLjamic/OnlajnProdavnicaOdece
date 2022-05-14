@@ -51,3 +51,7 @@ p {
 .controlItem:hover {
     background-color: rgb(202, 43, 43);
 }
+
+.sakrij {
+    display: none;
+}

@@ -9,6 +9,12 @@ USE OnlajnProdavnicaOdece
 go
 /***************Kreiranje tabela***************/
 go
+CREATE TABLE Slika
+(
+	Id INT IDENTITY(1, 1) PRIMARY KEY,
+	Ref NVARCHAR(MAX)
+)
+go
 CREATE TABLE Korisnik
 (
 	Id INT IDENTITY(1, 1) PRIMARY KEY,
@@ -28,8 +34,7 @@ CREATE TABLE Proizvod
 	Cena FLOAT NOT NULL,
 	Kolicina INT NOT NULL DEFAULT(0),
 	DatumNastanka DATE NOT NULL,
-	DatumIzmene DATE,
-	SlikaRef NVARCHAR(MAX) DEFAULT('/uploads/default.png')
+	SlikaRef NVARCHAR(MAX)
 )
 go
 CREATE TABLE Tag
@@ -54,21 +59,42 @@ CREATE TABLE Narudzbina
 	Adresa NVARCHAR(100) NOT NULL,
 	Grad NVARCHAR(50) NOT NULL,
 	Drzava NVARCHAR(50) NOT NULL,
-	DatumNastanka DATE NOT NULL,
-	Komentar NVARCHAR(1000)
-)
-go
-CREATE TABLE ProizvodNarudzbina
-(
-	Id INT IDENTITY(1, 1) PRIMARY KEY,
-	ProizvodId INT FOREIGN KEY REFERENCES Proizvod(Id) NOT NULL,
-	NarudzbinaId INT FOREIGN KEY REFERENCES Narudzbina(Id) NOT NULL,
-	Kolicina INT NOT NULL DEFAULT(1)
+	Datum DATE NOT NULL,
+	Komentar NVARCHAR(1000),
+	ProizvodId INT FOREIGN KEY REFERENCES Proizvod(Id) NOT NULL
 )
 go
 /**/
 go
 /***************Stored procedure***************/
+go
+/**********Slika**********/
+go
+CREATE PROC SlikaInsert
+@Ref NVARCHAR(MAX)
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	INSERT INTO Slika(Ref)
+	VALUES(@Ref)
+	RETURN 0;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/*SlikaUpdate nema*/
+go
+CREATE PROC SlikaDelete
+@Id INT
+AS
+BEGIN TRY
+	DELETE FROM Slika WHERE Id = @Id
+	RETURN 0;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
 go
 /**********Korisnik**********/
 go
@@ -129,7 +155,7 @@ BEGIN TRY
 	BEGIN
 		UPDATE Korisnik SET
 		Mejl = @Mejl,
-		Lozinka = @Lozinka ,
+		Lozinka = @Lozinka,
 		Ime = @Ime,
 		Prezime = @Prezime,
 		Telefon = @Telefon
@@ -215,7 +241,7 @@ CREATE PROC ProizvodInsert
 @Opis NVARCHAR(1000),
 @Cena FLOAT,
 @Kolicina INT,
-@SlikaRef NVARCHAR(MAX) = '/uploads/default.png'
+@SlikaRef NVARCHAR(MAX) = NULL
 AS
 SET LOCK_TIMEOUT 3000;
 BEGIN TRY
@@ -232,10 +258,10 @@ go
 CREATE PROC ProizvodUpdate
 @Id INT,
 @Naziv NVARCHAR(100),
-@Opis NVARCHAR(1000),
+@Opis NVARCHAR(1000) = NULL,
 @Cena FLOAT,
 @Kolicina INT,
-@SlikaRef NVARCHAR(MAX)
+@SlikaRef NVARCHAR(MAX) = NULL
 AS
 SET LOCK_TIMEOUT 3000;
 BEGIN TRY
@@ -248,8 +274,7 @@ BEGIN TRY
 		Opis = @Opis,
 		Cena = @Cena,
 		Kolicina = @Kolicina,
-		SlikaRef = @SlikaRef,
-		DatumIzmene = CONVERT(date, GETDATE())
+		SlikaRef = @SlikaRef
 		WHERE Id = @Id
 		RETURN 0;
 	END
@@ -318,12 +343,13 @@ CREATE PROC NarudzbinaInsert
 @Adresa NVARCHAR(100),
 @Grad NVARCHAR(50),
 @Drzava NVARCHAR(50),
-@Komentar NVARCHAR(1000) = NULL
+@Komentar NVARCHAR(1000) = NULL,
+@ProizvodId INT
 AS
 SET LOCK_TIMEOUT 3000;
 BEGIN TRY
-	INSERT INTO Narudzbina(KorisnikId, Adresa, Grad, Drzava, Komentar, DatumNastanka, StatusNarudzbine)
-	VALUES(@KorisnikId, @Adresa, @Grad, @Drzava, @Komentar, CONVERT(date, GETDATE()), 'U obradi')
+	INSERT INTO Narudzbina(KorisnikId, Adresa, Grad, Drzava, Komentar, Datum, StatusNarudzbine, ProizvodId)
+	VALUES(@KorisnikId, @Adresa, @Grad, @Drzava, @Komentar, CONVERT(date, GETDATE()), 'U obradi', @ProizvodId)
 	RETURN 0;
 END TRY
 BEGIN CATCH
@@ -332,34 +358,7 @@ END CATCH
 go
 /**/
 go
-CREATE PROC NarudzbinaUpdate
-@Id INT,
-@Adresa NVARCHAR(100),
-@Grad NVARCHAR(50),
-@Drzava NVARCHAR(50),
-@Komentar NVARCHAR(1000) = NULL,
-@StatusNarudzbine NVARCHAR(50)
-AS
-SET LOCK_TIMEOUT 3000;
-BEGIN TRY
-	IF EXISTS (SELECT TOP 1 KorisnikId FROM Narudzbina
-	WHERE Id = @Id)
-	BEGIN
-		UPDATE Narudzbina
-		SET
-		Adresa = @Adresa,
-		Grad = @Grad,
-		Drzava = @Drzava,
-		Komentar = @Komentar,
-		StatusNarudzbine = @StatusNarudzbine
-		WHERE Id = @Id
-		RETURN 0;
-	END
-	RETURN 1;
-END TRY
-BEGIN CATCH
-	RETURN @@ERROR;
-END CATCH
+/*NarudzbinaUpdate nema*/
 go
 /**/
 go
@@ -368,64 +367,6 @@ CREATE PROC NarudzbinaDelete
 AS
 BEGIN TRY
 	DELETE FROM Narudzbina WHERE Id = @Id
-	RETURN 0;
-END TRY
-BEGIN CATCH
-	RETURN @@ERROR;
-END CATCH
-go
-/**********ProizvodNarudzbina**********/
-go
-CREATE PROC ProizvodNarudzbinaInsert
-@ProizvodId INT,
-@NarudzbinaId INT,
-@Kolicina INT
-AS
-SET LOCK_TIMEOUT 3000;
-BEGIN TRY
-	IF EXISTS (SELECT TOP 1 Kolicina FROM ProizvodNarudzbina
-	WHERE ProizvodId = @ProizvodId AND NarudzbinaId = @NarudzbinaId)
-	BEGIN
-		UPDATE ProizvodNarudzbina
-		SET Kolicina = (Kolicina + @Kolicina)
-	END
-	ELSE	
-		INSERT INTO ProizvodNarudzbina(ProizvodId, NarudzbinaId, Kolicina)
-		VALUES(@ProizvodId, @NarudzbinaId, @Kolicina)
-	RETURN 0;
-END TRY
-BEGIN CATCH
-	RETURN @@ERROR;
-END CATCH
-go
-/**/
-go
-/*ProizvodNarudzbinaUpdate nema*/
-go
-CREATE PROC ProizvodNarudzbinaDelete
-@ProizvodId INT,
-@NarudzbinaId INT
-AS
-BEGIN TRY
-	DELETE FROM ProizvodNarudzbina
-	WHERE ProizvodId = @ProizvodId AND NarudzbinaId = @NarudzbinaId
-	RETURN 0;
-END TRY
-BEGIN CATCH
-	RETURN @@ERROR;
-END CATCH
-go
-CREATE PROC ProizvodNarudzbinaKolicinaInc
-@ProizvodId INT,
-@NarudzbinaId INT
-AS
-BEGIN TRY
-	IF EXISTS (SELECT TOP 1 Id FROM ProizvodNarudzbina
-	WHERE ProizvodId = @ProizvodId AND NarudzbinaId = @NarudzbinaId)
-	BEGIN
-		UPDATE ProizvodNarudzbina
-		SET Kolicina = (Kolicina + 1)
-	END
 	RETURN 0;
 END TRY
 BEGIN CATCH
@@ -489,9 +430,11 @@ END
 
 
 
-/*TRIGGER DA SE PROIZVOD NARUDZBINA OBRISE KADA KOLICINA PADNE NA 0*/
+
 /*kada kolicina proizvoda bude 0, nema na sstanju*/
 
 /**********Dodavanje admina**********/
 INSERT INTO Korisnik (Ime, Prezime, Telefon, Mejl, Lozinka, jeAdmin)
-VALUES ('Admin', '1', 'N/A', 'admin@gmail.com', '111', 'TRUE')
+VALUES ('Admin', '1', 'N/A', 'admin@gmail.com', '123', 'TRUE')
+insert into Slika(ref)
+values('/uploads/default.png')
