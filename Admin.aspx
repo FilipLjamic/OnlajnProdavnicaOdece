@@ -55,7 +55,7 @@
                     </UpdateParameters>
                 </asp:SqlDataSource>
 
-                <asp:GridView ID="GridTag" runat="server" AutoGenerateColumns="False" CellPadding="3" DataKeyNames="Id" DataSourceID="SqlDataSource1" AllowSorting="True" ShowFooter="True" Width="333px" ShowHeaderWhenEmpty="True" OnLoad="GridTag_Load" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
+                <asp:GridView ID="GridTag" runat="server" AutoGenerateColumns="False" CellPadding="3" DataKeyNames="Id" DataSourceID="SqlDataSource1" AllowSorting="True" ShowFooter="True" Width="333px" ShowHeaderWhenEmpty="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" AllowPaging="True">
                     <Columns>
                         
                         <asp:TemplateField HeaderText="Id" InsertVisible="False" SortExpression="Id">
@@ -135,7 +135,7 @@
                     </UpdateParameters>
                 </asp:SqlDataSource>
 
-                <asp:GridView ID="GridProizvod" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource2" ShowFooter="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowUpdated="GridProizvod_RowUpdated">
+                <asp:GridView ID="GridProizvod" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource2" ShowFooter="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowUpdated="GridProizvod_RowUpdated" AllowPaging="True" AllowSorting="True">
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -245,9 +245,10 @@
                 </asp:SqlDataSource>
 
                 <asp:FileUpload ID="FileUpload1" runat="server" />
-                <asp:Button ID="ButtonUpload" runat="server" Text="Upload" OnClick="ButtonUpload_Click" />
+                <asp:Button ID="ButtonUpload" runat="server" Text="Dodaj sliku" OnClick="ButtonUpload_Click" />
                 <asp:Image ID="Image1" runat="server" ImageUrl="" Height="300px" Width="300px"/>
                 <asp:DropDownList ID="DropDownList3" runat="server" DataSourceID="SqlDataSource3" DataTextField="Ref" DataValueField="Ref" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                <asp:Button ID="ButtonDelete" runat="server" Text="Obrisi sliku" OnClick="ButtonDelete_Click" />
             </div>
 
             <div>
@@ -264,7 +265,7 @@
                     </InsertParameters>
                 </asp:SqlDataSource>
 
-                <asp:GridView ID="GridPT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="ProizvodId,TagId" DataSourceID="SqlDataSource4" ShowFooter="True" ShowHeaderWhenEmpty="True">
+                <asp:GridView ID="GridPT" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="ProizvodId,TagId" DataSourceID="SqlDataSource4" ShowFooter="True" ShowHeaderWhenEmpty="True" AllowPaging="True" AllowSorting="True">
                     <Columns>
                         <asp:TemplateField>
                             <EditItemTemplate></EditItemTemplate>

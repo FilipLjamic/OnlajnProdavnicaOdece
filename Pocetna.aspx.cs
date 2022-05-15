@@ -28,7 +28,7 @@ namespace OnlajnProdavnicaOdece
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            set = A.PTFilter(DropDownList1.SelectedValue);
+            set = A.PTFilter(Convert.ToInt32(DropDownList1.SelectedValue));
             for (int i = 0; i < set.Tables[0].Rows.Count; i++)
             {
                 Response.Write(set.Tables[0].Rows[i]["Naziv"]);
@@ -39,6 +39,11 @@ namespace OnlajnProdavnicaOdece
                 Response.Write("<br>");
 
             }
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -27,6 +27,7 @@ namespace OnlajnProdavnicaOdece
         {
             A.TagInsert(((TextBox)GridTag.FooterRow.FindControl("TagNazivInsert")).Text, ((TextBox)GridTag.FooterRow.FindControl("TagOpisInsert")).Text);
             GridTag.DataBind();
+            ((DropDownList)GridPT.FooterRow.FindControl("DropDownList5")).DataBind();
         }
 
         protected void ProizvodLinkButtonInsert_Click(object sender, EventArgs e)
@@ -40,30 +41,7 @@ namespace OnlajnProdavnicaOdece
             
             A.ProizvodInsert(Naziv, Opis, Cena, Kolicina, Ref);
             GridProizvod.DataBind();
-        }
-
-        protected void GridTag_Load(object sender, EventArgs e)
-        {
-            GridTagFooterWhenEmpty();
-        }
-
-        private void GridTagFooterWhenEmpty()
-        {
-            if (GridTag.Rows.Count == 0)
-            {
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Id");
-                dt.Columns.Add("Naziv");
-                dt.Columns.Add("Opis");
-                DataRow red = dt.NewRow();
-                red["Id"] = 0;
-                red["Naziv"] = "";
-                red["Opis"] = "";
-                dt.Rows.Add(red);
-                ViewState["GridTag"] = dt;
-                
-                //GridTag.Rows[0].Visible = false;
-            }
+            ((DropDownList)GridPT.FooterRow.FindControl("DropDownList4")).DataBind();
         }
 
         protected void ButtonUpload_Click(object sender, EventArgs e)
@@ -79,8 +57,11 @@ namespace OnlajnProdavnicaOdece
                 {
                     FileUpload1.SaveAs(Server.MapPath("/uploads/" + FileUpload1.FileName));
                     A.SlikaInsert("/uploads/" + FileUpload1.FileName);
+                    DropDownList3.DataBind();
+                    ((DropDownList)GridProizvod.FooterRow.FindControl("DropDownList2")).DataBind();
+                    Image1.ImageUrl = "/uploads/" + FileUpload1.FileName;
+                    DropDownList3.SelectedValue = "/uploads/" + FileUpload1.FileName;
                 }
-                DropDownList3.DataBind();
             }
         }
 
@@ -101,6 +82,19 @@ namespace OnlajnProdavnicaOdece
         {
             A.ProizvodSlikaUpdate(((DropDownList)GridProizvod.Rows[GridProizvod.EditIndex].FindControl("DropDownList1")).SelectedValue, Convert.ToInt32(((Label)GridProizvod.Rows[GridProizvod.EditIndex].FindControl("Label1")).Text));
             GridProizvod.DataBind();
+        }
+
+        protected void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            string Ref = DropDownList3.SelectedValue;
+            A.SlikaDelete(Ref);
+            A.ProizvodSlikaDefault(Ref);
+            DropDownList3.DataBind();
+            GridProizvod.DataBind();
+            ((DropDownList)GridProizvod.FooterRow.FindControl("DropDownList2")).DataBind();
+            Image1.ImageUrl = "/uploads/default.png";
+            string path = Server.MapPath("~" + Ref);
+            System.IO.File.Delete(path);
         }
     }
 }

@@ -274,7 +274,7 @@ namespace OnlajnProdavnicaOdece
             return set;
         }
 
-        public DataSet PTFilter(string tag)
+        public DataSet PTFilter(int Id)
         {
             konekcija.ConnectionString = webConfig;
 
@@ -283,7 +283,7 @@ namespace OnlajnProdavnicaOdece
             komanda.CommandText = "ProizvodSviFilter";
 
             komanda.Parameters.Clear();
-            komanda.Parameters.Add(new SqlParameter("@Tag", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, tag));
+            komanda.Parameters.Add(new SqlParameter("@TagId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Id));
 
             konekcija.Open();
             komanda.ExecuteNonQuery();
@@ -291,6 +291,38 @@ namespace OnlajnProdavnicaOdece
             adapter.SelectCommand = komanda;
             adapter.Fill(set);
             return set;
+        }
+
+        public void SlikaDelete(string Ref)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "SlikaDelete";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Ref", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Ref));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
+
+        public void ProizvodSlikaDefault(string Ref)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "ProizvodSlikaDefault";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@SlikaRef", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Ref));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
         }
     }
 }

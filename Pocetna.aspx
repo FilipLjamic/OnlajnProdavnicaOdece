@@ -44,54 +44,34 @@
 
             <div id="main">
 
-                <div class="proizvodContainer">
-                    <!--<%
-                        
-                        string naredba = "SELECT * FROM Proizvod";
-                        SqlConnection veza = Konekcija.Connect();
-                        SqlDataAdapter adapter = new SqlDataAdapter(naredba, veza);
-                        DataTable dt_Proizvod = new DataTable();
-                        adapter.Fill(dt_Proizvod);
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Naziv" DataValueField="Id"></asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" SelectCommand="SELECT * FROM [Tag]"></asp:SqlDataSource>
+                <asp:Button ID="Button1" runat="server" Text="Primeni filter" OnClick="Button1_Click" />
+                <asp:Button ID="Button2" runat="server" Text="Ocisti filter" OnClick="Button2_Click" />
 
-                        for (int i = 0; i < dt_Proizvod.Rows.Count; i++)
+                <div class="proizvodContainer">
+                    <%
+                        DataSet set = new DataSet();
+                        set = A.ProizvodSvi();
+
+                        for (int i = 0; i < set.Tables[0].Rows.Count; i++)
                         {
                             Response.Write("<div class='proizvodStavka'>");
 
-                            Response.Write(dt_Proizvod.Rows[i]["Naziv"].ToString());
+                            Response.Write(set.Tables[0].Rows[i]["Naziv"]);
 
                             Response.Write("<div class='proizvodSlika'>");
-                            Response.Write("<img src='");
-                            Response.Write(dt_Proizvod.Rows[i]["SlikaRef"].ToString());
-                            Response.Write("' width='90%' align='center' />");
+                            Response.Write("<img src='" + set.Tables[0].Rows[i]["SlikaRef"] + "' width='90%' align='center' />");
                             Response.Write("</div>");
 
+                            Response.Write("<a href=Narudzbina.aspx?ID=" + set.Tables[0].Rows[i]["Id"] + ">Naruci</a>");
+
                             Response.Write("</div>");
+
+                            //Response.Write(set.Tables[0].Rows[i]["Opis"]);
+
                         }
-
-                        
-                    %>-->
-
-                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Naziv" DataValueField="Naziv"></asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" SelectCommand="SELECT * FROM [Tag]"></asp:SqlDataSource>
-                    <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
-                    <%
-                
-
-                DataSet set = new DataSet();
-                set = A.ProizvodSvi();
-                for (int i = 0; i < set.Tables[0].Rows.Count; i++)
-                {
-                    Response.Write(set.Tables[0].Rows[i]["Naziv"]);
-                    Response.Write("<a href=Narudzbina.aspx?ID=" + set.Tables[0].Rows[i]["Id"] + ">");
-                    Response.Write("Naruci");
-                    Response.Write("</a>");
-                    Response.Write(set.Tables[0].Rows[i]["Opis"]);
-                    Response.Write("<img src='" + set.Tables[0].Rows[i]["SlikaRef"] + "' width=100px />");
-
-                    Response.Write("<br>");
-
-                }
-                %>
+                    %>
                 </div>
 
             </div>
