@@ -66,12 +66,6 @@ namespace OnlajnProdavnicaOdece
                     Response.Write("<a class='proizvodNedostupan'" + ds.Tables[0].Rows[i]["Id"] + ">Nije na stanju</a>");
 
                 Response.Write("</div>");
-
-                //Response.Write(set.Tables[0].Rows[i]["Opis"]);
-
-                //Response.Write("<div class='proizvodCenaKol'>");
-                //Response.Write("<a class='proizvodKolicina'> Dostupno: " + set.Tables[0].Rows[i]["Kolicina"] + "<a>");
-                //Response.Write("</div>");
             }
         }
     }
