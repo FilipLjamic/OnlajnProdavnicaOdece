@@ -55,3 +55,7 @@ p {
 .sakrij {
     display: none;
 }
+
+asp:GridView tr th {
+    padding: 3px;
+}

@@ -324,5 +324,63 @@ namespace OnlajnProdavnicaOdece
             komanda.ExecuteNonQuery();
             konekcija.Close();
         }
+
+        public int getKorisnikId(string Mejl)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "GetKorisnikId";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Mejl", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, Mejl));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+            adapter.SelectCommand = komanda;
+            adapter.Fill(set);
+            return Convert.ToInt32(set.Tables[0].Rows[0]["Id"].ToString());
+        }
+
+        public void NarudzbinaInsert(int id, string adresa, string grad, string drzava, string komentar, int proizvod)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "NarudzbinaInsert";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@KorisnikId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, id));
+            komanda.Parameters.Add(new SqlParameter("@Adresa", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, adresa));
+            komanda.Parameters.Add(new SqlParameter("@Grad", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, grad));
+            komanda.Parameters.Add(new SqlParameter("@Drzava", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, drzava));
+            komanda.Parameters.Add(new SqlParameter("@Komentar", SqlDbType.NVarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, komentar));
+            komanda.Parameters.Add(new SqlParameter("@ProizvodId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, proizvod));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
+
+        public void KolMinus(int id)
+        {
+            konekcija.ConnectionString = webConfig;
+
+            komanda.Connection = konekcija;
+            komanda.CommandType = CommandType.StoredProcedure;
+            komanda.CommandText = "KolMinus";
+
+            komanda.Parameters.Clear();
+            komanda.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, id));
+            komanda.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, null));
+
+            konekcija.Open();
+            komanda.ExecuteNonQuery();
+            konekcija.Close();
+        }
     }
 }

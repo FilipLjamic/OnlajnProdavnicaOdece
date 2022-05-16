@@ -1,3 +1,64 @@
-﻿.sakrijKolonu {
-    display: none;
+﻿.main {
+    background-color: rgb(225, 232, 238);
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.slikaContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 25%;
+    background-color: white;
+    padding: 1em;
+    border-radius: 1.5em;
+    margin: 1em;
+    align-self: center;
+}
+
+.slikaUpload {
+    width: 100%;
+    padding: 0.5em;
+}
+
+.slikaSelDel {
+    width: 100%;
+    padding: 0.5em;
+}
+
+.slika {
+    width: 100%;
+    padding: 0.5em;
+}
+
+#Image1 {
+    width: 100%;
+}
+
+#FileUpload1 {
+    float: left;
+    width: 75%;
+}
+
+#ButtonUpload {
+    float: right;
+    width: 25%;
+}
+
+#DropDownList3 {
+    float: left;
+    width: 75%;
+}
+
+#ButtonDelete {
+    float: right;
+    width: 25%;
+}
+
+.tabela {
+    padding: 1.5em;
+    border-radius: 1.5em;
+    background-color: white;
+    margin: 0.75em;
+    align-self: center;
 }

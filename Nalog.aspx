@@ -65,6 +65,59 @@
 
                     <asp:Button ID="delete" runat="server" Text="Obrisite nalog"  CssClass="item" OnClick="delete_Click"  />
                 </div>
+
+                <div class="tabela">
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" DeleteCommand="DELETE FROM [Narudzbina] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Narudzbina] ([KorisnikId], [StatusNarudzbine], [Adresa], [Grad], [Drzava], [Datum], [Komentar], [ProizvodId]) VALUES (@KorisnikId, @StatusNarudzbine, @Adresa, @Grad, @Drzava, @Datum, @Komentar, @ProizvodId)" SelectCommand="SELECT [Narudzbina].*, [Proizvod].[Naziv] FROM [Narudzbina] JOIN [Proizvod] ON [Narudzbina].[ProizvodId] = [Proizvod].[Id]" UpdateCommand="UPDATE [Narudzbina] SET [KorisnikId] = @KorisnikId, [StatusNarudzbine] = @StatusNarudzbine, [Adresa] = @Adresa, [Grad] = @Grad, [Drzava] = @Drzava, [Datum] = @Datum, [Komentar] = @Komentar, [ProizvodId] = @ProizvodId WHERE [Id] = @Id">
+                        <DeleteParameters>
+                            <asp:Parameter Name="Id" Type="Int32" />
+                        </DeleteParameters>
+                        <InsertParameters>
+                            <asp:Parameter Name="KorisnikId" Type="Int32" />
+                            <asp:Parameter Name="StatusNarudzbine" Type="String" />
+                            <asp:Parameter Name="Adresa" Type="String" />
+                            <asp:Parameter Name="Grad" Type="String" />
+                            <asp:Parameter Name="Drzava" Type="String" />
+                            <asp:Parameter DbType="Date" Name="Datum" />
+                            <asp:Parameter Name="Komentar" Type="String" />
+                            <asp:Parameter Name="ProizvodId" Type="Int32" />
+                        </InsertParameters>
+                        <UpdateParameters>
+                            <asp:Parameter Name="KorisnikId" Type="Int32" />
+                            <asp:Parameter Name="StatusNarudzbine" Type="String" />
+                            <asp:Parameter Name="Adresa" Type="String" />
+                            <asp:Parameter Name="Grad" Type="String" />
+                            <asp:Parameter Name="Drzava" Type="String" />
+                            <asp:Parameter DbType="Date" Name="Datum" />
+                            <asp:Parameter Name="Komentar" Type="String" />
+                            <asp:Parameter Name="ProizvodId" Type="Int32" />
+                            <asp:Parameter Name="Id" Type="Int32" />
+                        </UpdateParameters>
+                    </asp:SqlDataSource>
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource1">
+                        <Columns>
+                            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                            <asp:BoundField DataField="KorisnikId" HeaderText="KorisnikId" SortExpression="KorisnikId" Visible="False" />
+                            <asp:BoundField DataField="StatusNarudzbine" HeaderText="StatusNarudzbine" SortExpression="StatusNarudzbine" />
+                            <asp:BoundField DataField="Adresa" HeaderText="Adresa" SortExpression="Adresa" />
+                            <asp:BoundField DataField="Grad" HeaderText="Grad" SortExpression="Grad" />
+                            <asp:BoundField DataField="Drzava" HeaderText="Drzava" SortExpression="Drzava" />
+                            <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
+                            <asp:BoundField DataField="Komentar" HeaderText="Komentar" SortExpression="Komentar" />
+                            <asp:BoundField DataField="ProizvodId" HeaderText="ProizvodId" SortExpression="ProizvodId" />
+                            <asp:BoundField DataField="Naziv" HeaderText="Naziv" SortExpression="Naziv" />
+                            <asp:CommandField ShowDeleteButton="True" />
+                        </Columns>
+
+                        <FooterStyle BackColor="White" ForeColor="Black" />
+                        <HeaderStyle BackColor="#E63232" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle ForeColor="Black" />
+                        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                        <SortedAscendingHeaderStyle BackColor="#E65050" />
+                        <SortedDescendingCellStyle BackColor="#D0D0D0" />
+                        <SortedDescendingHeaderStyle BackColor="#CA2B2B" />
+                    </asp:GridView>
+                </div>
             </div>
 
         </div>

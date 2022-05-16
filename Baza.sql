@@ -86,10 +86,10 @@ go
 /*SlikaUpdate nema*/
 go
 CREATE PROC SlikaDelete
-@Id INT
+@Ref NVARCHAR(MAX)
 AS
 BEGIN TRY
-	DELETE FROM Slika WHERE Id = @Id
+	DELETE FROM Slika WHERE Ref = @Ref
 	RETURN 0;
 END TRY
 BEGIN CATCH
@@ -406,32 +406,104 @@ BEGIN CATCH
 	RETURN @@ERROR;
 END CATCH
 go
-
-
-
-
-
-
-/**********Dobijanje ukupne cene**********//*zavrsi ovo*/
+/**/
 go
-CREATE FUNCTION GetUkupnaCena (@NarudzbinaId INT)
-RETURNS FLOAT AS
-BEGIN
-   DECLARE @Vrednost FLOAT
-
-   SELECT SUM(Proizvod.Cena)
-   FROM Proizvod
-   JOIN ProizvodNarudzbina
-   ON Proizvod.Id = ProizvodNarudzbina.ProizvodId
-   WHERE ProizvodNarudzbina.NarudzbinaId = @NarudzbinaId
-
-   RETURN @Vrednost
-END
-
-
-
-
-/*kada kolicina proizvoda bude 0, nema na sstanju*/
+CREATE PROC ProizvodSlikaUpdate
+@Id INT,
+@SlikaRef NVARCHAR(MAX)
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	IF EXISTS (SELECT TOP 1 Naziv FROM Proizvod
+	WHERE Id = @Id)
+	BEGIN
+		UPDATE Proizvod
+		SET
+		SlikaRef = @SlikaRef
+		WHERE Id = @Id
+		RETURN 0;
+	END
+	RETURN 1;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/**/
+go
+CREATE PROC ProizvodSvi
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	SELECT * FROM Proizvod
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/**/
+go
+CREATE PROC ProizvodSlikaDefault
+@SlikaRef NVARCHAR(MAX)
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	UPDATE Proizvod
+	SET
+	SlikaRef = '/uploads/default.png'
+	WHERE SlikaRef = @SlikaRef
+	RETURN 0;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/**/
+go
+CREATE PROC ProizvodSviFilter
+@TagId INT
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	SELECT P.* FROM Proizvod AS P
+	INNER JOIN ProizvodTag AS PT
+	ON P.Id = PT.ProizvodId
+	INNER JOIN Tag AS T
+	ON PT.TagID = T.Id
+	WHERE PT.TagId = @TagID
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/**/
+CREATE PROC GetKorisnikId
+@Mejl NVARCHAR(50)
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	SELECT TOP 1 Id FROM Korisnik
+	WHERE Mejl = @Mejl
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
+go
+/**/
+CREATE PROC KolMinus
+@Id INT
+AS
+SET LOCK_TIMEOUT 3000;
+BEGIN TRY
+	UPDATE Proizvod
+	SET
+	Kolicina = Kolicina - 1
+	WHERE Id = @Id
+	RETURN 0;
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR;
+END CATCH
 
 /**********Dodavanje admina**********/
 INSERT INTO Korisnik (Ime, Prezime, Telefon, Mejl, Lozinka, jeAdmin)

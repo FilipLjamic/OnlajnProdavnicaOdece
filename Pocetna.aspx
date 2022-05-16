@@ -14,7 +14,10 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <% Klasa A = new Klasa(); %>
+            <%
+                Klasa A = new Klasa();
+                DataSet set = new DataSet();
+            %>
             <header>
                 <div class="header">
                     <div class="user">
@@ -43,34 +46,17 @@
             </header>
 
             <div id="main">
-
-                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Naziv" DataValueField="Id"></asp:DropDownList>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" SelectCommand="SELECT * FROM [Tag]"></asp:SqlDataSource>
-                <asp:Button ID="Button1" runat="server" Text="Primeni filter" OnClick="Button1_Click" />
-                <asp:Button ID="Button2" runat="server" Text="Ocisti filter" OnClick="Button2_Click" />
-
+                <div class="filterContainer">
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Naziv" DataValueField="Id" CssClass="filterDDL"></asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:veza %>" SelectCommand="SELECT * FROM [Tag]"></asp:SqlDataSource>
+                    <asp:Button ID="Button1" runat="server" Text="Primeni filter" OnClick="Button1_Click" CssClass="filterButton"/>
+                    <asp:Button ID="Button2" runat="server" Text="Ocisti filter" OnClick="Button2_Click" CssClass="filterButton"/>
+                </div>
+                
                 <div class="proizvodContainer">
                     <%
-                        DataSet set = new DataSet();
-                        set = A.ProizvodSvi();
-
-                        for (int i = 0; i < set.Tables[0].Rows.Count; i++)
-                        {
-                            Response.Write("<div class='proizvodStavka'>");
-
-                            Response.Write(set.Tables[0].Rows[i]["Naziv"]);
-
-                            Response.Write("<div class='proizvodSlika'>");
-                            Response.Write("<img src='" + set.Tables[0].Rows[i]["SlikaRef"] + "' width='90%' align='center' />");
-                            Response.Write("</div>");
-
-                            Response.Write("<a href=Narudzbina.aspx?ID=" + set.Tables[0].Rows[i]["Id"] + ">Naruci</a>");
-
-                            Response.Write("</div>");
-
-                            //Response.Write(set.Tables[0].Rows[i]["Opis"]);
-
-                        }
+                        set = vratiSet();
+                        divNapravi(set);
                     %>
                 </div>
 

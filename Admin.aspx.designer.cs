@@ -42,6 +42,24 @@ namespace OnlajnProdavnicaOdece
         protected global::System.Web.UI.WebControls.GridView GridTag;
 
         /// <summary>
+        /// SqlDataSource4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
+
+        /// <summary>
+        /// GridPT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridPT;
+
+        /// <summary>
         /// SqlDataSource2 control.
         /// </summary>
         /// <remarks>
@@ -114,21 +132,21 @@ namespace OnlajnProdavnicaOdece
         protected global::System.Web.UI.WebControls.Button ButtonDelete;
 
         /// <summary>
-        /// SqlDataSource4 control.
+        /// SqlDataSource5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource5;
 
         /// <summary>
-        /// GridPT control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridPT;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

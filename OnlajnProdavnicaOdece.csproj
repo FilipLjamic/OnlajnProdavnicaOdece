@@ -75,6 +75,7 @@
     <Content Include="Nalog.aspx" />
     <Content Include="Nalog.css" />
     <Content Include="Narudzbina.aspx" />
+    <Content Include="Narudzbina.css" />
     <Content Include="Pocetna.aspx" />
     <Content Include="Pocetna.css" />
     <Content Include="Registracija.aspx" />

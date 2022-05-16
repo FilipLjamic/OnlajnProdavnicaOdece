@@ -44,3 +44,10 @@
 #update:hover, #delete:hover {
     background-color: rgb(202, 43, 43);
 }
+
+.tabela {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
