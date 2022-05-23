@@ -508,5 +508,16 @@ END CATCH
 /**********Dodavanje admina**********/
 INSERT INTO Korisnik (Ime, Prezime, Telefon, Mejl, Lozinka, jeAdmin)
 VALUES ('Admin', '1', 'N/A', 'admin@gmail.com', '123', 'TRUE')
-insert into Slika(ref)
-values('/uploads/default.png')
+
+/**********Default vrednosti**********/
+INSERT INTO Slika (Ref)
+VALUES ('/uploads/default.png')
+
+INSERT INTO Proizvod (Naziv, Cena, Kolicina, DatumNastanka, SlikaRef)
+VALUES ('Test', 1000, 10, GETDATE(), '/uploads/default.png')
+
+INSERT INTO Tag (Naziv)
+VALUES ('Test')
+
+INSERT INTO ProizvodTag (ProizvodId, TagId)
+VALUES (1, 1)
