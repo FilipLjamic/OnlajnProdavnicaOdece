@@ -7,6 +7,9 @@ CREATE DATABASE OnlajnProdavnicaOdece
 go
 USE OnlajnProdavnicaOdece
 go
+
+
+
 /***************Kreiranje tabela***************/
 go
 CREATE TABLE Slika
@@ -66,8 +69,10 @@ CREATE TABLE Narudzbina
 go
 /**/
 go
+
+
+
 /***************Stored procedure***************/
-go
 /**********Slika**********/
 go
 CREATE PROC SlikaInsert
@@ -504,9 +509,27 @@ END TRY
 BEGIN CATCH
 	RETURN @@ERROR;
 END CATCH
+go
+
+
 
 /**********Dodavanje admina**********/
+go
 INSERT INTO Korisnik (Ime, Prezime, Telefon, Mejl, Lozinka, jeAdmin)
 VALUES ('Admin', '1', 'N/A', 'admin@gmail.com', '123', 'TRUE')
-insert into Slika(ref)
-values('/uploads/default.png')
+go
+
+/**********Default vrednosti**********/
+go
+INSERT INTO Slika (Ref)
+VALUES ('/uploads/default.png')
+go
+INSERT INTO Proizvod (Naziv, Cena, Kolicina, DatumNastanka, SlikaRef)
+VALUES ('Test', 1000, 10, GETDATE(), '/uploads/default.png')
+go
+INSERT INTO Tag (Naziv)
+VALUES ('Test')
+go
+INSERT INTO ProizvodTag (ProizvodId, TagId)
+VALUES (1, 1)
+go
